@@ -16,6 +16,4 @@ public interface IPasajeroRepository extends JpaRepository<PasajeroEntity, Integ
 
     @Transactional
     Optional<PasajeroEntity> findByNombres(String nombres);
-
-
 }

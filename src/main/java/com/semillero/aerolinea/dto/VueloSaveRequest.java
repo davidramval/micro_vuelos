@@ -10,8 +10,8 @@ public class VueloSaveRequest implements Serializable {
     private String numeroVuelo;
     private String codigoAvion;
     private Date fechaSalida;
-    private int codigoCiudadSalida;
-    private int codigoCiudadDestino;
+    private CiudadDto ciudadSalida;
+    private CiudadDto ciudadDestino;
     private List<PasajeroDto> pasajeroList;
 
     public String getNumeroVuelo() {
@@ -38,20 +38,20 @@ public class VueloSaveRequest implements Serializable {
         this.fechaSalida = fechaSalida;
     }
 
-    public int getCodigoCiudadSalida() {
-        return codigoCiudadSalida;
+    public CiudadDto getCiudadSalida() {
+        return ciudadSalida;
     }
 
-    public void setCodigoCiudadSalida(int codigoCiudadSalida) {
-        this.codigoCiudadSalida = codigoCiudadSalida;
+    public void setCiudadSalida(CiudadDto ciudadSalida) {
+        this.ciudadSalida = ciudadSalida;
     }
 
-    public int getCodigoCiudadDestino() {
-        return codigoCiudadDestino;
+    public CiudadDto getCiudadDestino() {
+        return ciudadDestino;
     }
 
-    public void setCodigoCiudadDestino(int codigoCiudadDestino) {
-        this.codigoCiudadDestino = codigoCiudadDestino;
+    public void setCiudadDestino(CiudadDto ciudadDestino) {
+        this.ciudadDestino = ciudadDestino;
     }
 
     public List<PasajeroDto> getPasajeroList() {

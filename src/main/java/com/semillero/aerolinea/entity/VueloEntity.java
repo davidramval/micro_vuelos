@@ -22,20 +22,22 @@ public class VueloEntity {
     @Column(name = "fecha_salida", nullable = false)
     private Date fechaSalida;
 
-    @Column(name = "id_ciudad_salida", nullable = false, length = 50)
-    private int codigoCiudadSalida;
+    @JoinColumn(name = "id_ciudad_salida", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private CiudadEntity ciudadSalida;
 
-    @Column(name = "id_ciudad_destino", nullable = false, length = 50)
-    private int codigoCiudadDestino;
+    @JoinColumn(name = "id_ciudad_destino", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private CiudadEntity ciudadDestino;
 
     @ManyToMany
     @JoinTable(
             name = "vuelos_por_pasajeros",
             joinColumns = @JoinColumn(name = "id_vuelo"),
-            inverseJoinColumns = @JoinColumn(name = "id_pasajero")
-            //uniqueConstraints = @UniqueConstraint(columnNames={"id_vuelo", "id_pasajero"})
+            inverseJoinColumns = @JoinColumn(name = "id_pasajero"),
+            uniqueConstraints = @UniqueConstraint(columnNames={"id_vuelo", "id_pasajero"})
     )
-    List<PasajeroEntity> pasajeroList;
+    private List<PasajeroEntity> pasajeroList;
 
     public int getId() {
         return id;
@@ -69,20 +71,20 @@ public class VueloEntity {
         this.fechaSalida = fechaSalida;
     }
 
-    public int getCodigoCiudadSalida() {
-        return codigoCiudadSalida;
+    public CiudadEntity getCiudadSalida() {
+        return ciudadSalida;
     }
 
-    public void setCodigoCiudadSalida(int codigoCiudadSalida) {
-        this.codigoCiudadSalida = codigoCiudadSalida;
+    public void setCiudadSalida(CiudadEntity ciudadSalida) {
+        this.ciudadSalida = ciudadSalida;
     }
 
-    public int getCodigoCiudadDestino() {
-        return codigoCiudadDestino;
+    public CiudadEntity getCiudadDestino() {
+        return ciudadDestino;
     }
 
-    public void setCodigoCiudadDestino(int codigoCiudadDestino) {
-        this.codigoCiudadDestino = codigoCiudadDestino;
+    public void setCiudadDestino(CiudadEntity ciudadDestino) {
+        this.ciudadDestino = ciudadDestino;
     }
 
     public List<PasajeroEntity> getPasajeroList() {
