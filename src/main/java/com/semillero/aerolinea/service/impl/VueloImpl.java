@@ -1,7 +1,9 @@
 package com.semillero.aerolinea.service.impl;
 
+import com.semillero.aerolinea.dto.PasajeroDto;
 import com.semillero.aerolinea.dto.VueloDto;
 import com.semillero.aerolinea.dto.VueloSaveRequest;
+import com.semillero.aerolinea.entity.PasajeroEntity;
 import com.semillero.aerolinea.entity.VueloEntity;
 import com.semillero.aerolinea.repository.IVueloRepository;
 import com.semillero.aerolinea.service.IVueloService;
@@ -60,6 +62,16 @@ public class VueloImpl implements IVueloService {
         }
         vueloRepo.deleteById(id);
 
+    }
+
+    @Override
+    public VueloDto findById(int id) {
+        Optional<VueloEntity> vuelo = vueloRepo.findById(id);
+        VueloDto VueloDto = null;
+        if (vuelo.isPresent()) {
+            VueloDto = MHelpers.modelMapper().map(vuelo.get(), VueloDto.class);
+        }
+        return VueloDto;
     }
 
     private VueloDto convertToVueloDto (final VueloEntity vueloEntity){

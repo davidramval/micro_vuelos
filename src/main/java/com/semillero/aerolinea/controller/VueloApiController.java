@@ -22,6 +22,12 @@ public class VueloApiController {
         return ResponseEntity.ok(vueloservice.findAll());
     }
 
+    @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> findById(@PathVariable(value = "id") int id){
+
+        return ResponseEntity.ok(vueloservice.findById(id));
+    }
+
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody VueloSaveRequest vueloSaveRequest){
         vueloservice.save(vueloSaveRequest);
