@@ -21,9 +21,9 @@ public interface IPasajeroService {
 
     public PasajeroDto findByNombres(String nombres);
 
-    public void save(PasajeroSaveRequest pasajeroSaveRequest) throws ApiPasajeroConflict, ApiUnprossesableEntity;
+    public PasajeroDto save(PasajeroSaveRequest pasajeroSaveRequest) throws ApiPasajeroConflict, ApiUnprossesableEntity;
 
-    public void update(PasajeroUpdateRequest pasajeroUpdateRequest, int id);
+    public PasajeroDto update(PasajeroUpdateRequest pasajeroUpdateRequest, int id) throws ApiPasajeroConflict;
 
     public void deleteById(int id) throws ApiPasajeroConflict;
 

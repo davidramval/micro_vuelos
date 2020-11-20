@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/vuelos")
 public class VueloApiController {
 
@@ -39,7 +39,7 @@ public class VueloApiController {
     public ResponseEntity<Object> update(@RequestBody VueloSaveRequest vueloSaveRequest, @PathVariable int id) throws VueloApiConflict {
         vueloservice.update(vueloSaveRequest, id);
 
-        return ResponseEntity.ok("el vuelo se actualizo correctamente");
+        return ResponseEntity.ok(vueloservice.update(vueloSaveRequest, id));
     }
 
     @DeleteMapping(value = "{id}")

@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/pasajero")
 public class PasajeroApiController {
 
@@ -24,18 +24,15 @@ public class PasajeroApiController {
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody PasajeroSaveRequest requestSave) throws ApiPasajeroConflict, ApiUnprossesableEntity {
         validator.validatorSave(requestSave);
-        pasajeroservice.save(requestSave);
-
-        return ResponseEntity.ok("El pasajero se creo correctamente");
+        return ResponseEntity.ok(pasajeroservice.save(requestSave));
 
     }
 
     @PutMapping(value = "{id}")
-    public ResponseEntity<Object> update(@RequestBody PasajeroUpdateRequest requestUpdate, @PathVariable int id) throws ApiUnprossesableEntity {
+    public ResponseEntity<Object> update(@RequestBody PasajeroUpdateRequest requestUpdate, @PathVariable int id) throws ApiUnprossesableEntity, ApiPasajeroConflict {
         validator.validatorUpdate(requestUpdate);
-        pasajeroservice.update(requestUpdate, id);
 
-        return ResponseEntity.ok("El pasajero se actualizo correctamente");
+        return ResponseEntity.ok(pasajeroservice.update(requestUpdate, id));
 
     }
 

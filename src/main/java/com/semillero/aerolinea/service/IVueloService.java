@@ -12,7 +12,7 @@ public interface IVueloService {
 
     public List<VueloDto> findAll();
     public void save(VueloSaveRequest vueloSaveRequest);
-    public void update(VueloSaveRequest vueloSaveRequest, int id) throws VueloApiConflict;
+    public VueloDto update(VueloSaveRequest vueloSaveRequest, int id) throws VueloApiConflict;
     public void deleteById(int id) throws VueloApiConflict;
     public VueloDto findById(int id);
 }

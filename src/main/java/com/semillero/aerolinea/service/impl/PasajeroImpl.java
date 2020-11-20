@@ -68,18 +68,19 @@ public class PasajeroImpl implements IPasajeroService {
     }
 
     @Override
-    public void save(PasajeroSaveRequest pasajeroSaveRequest) throws ApiPasajeroConflict, ApiUnprossesableEntity {
+    public PasajeroDto save(PasajeroSaveRequest pasajeroSaveRequest) throws ApiPasajeroConflict, ApiUnprossesableEntity {
         PasajeroEntity pasajeroEntity = MHelpers.modelMapper().map(pasajeroSaveRequest, PasajeroEntity.class);
         Optional<PasajeroEntity> optionalPasajero = pasajeroRepo.findByNumeroDocumento(pasajeroSaveRequest.getNumeroDocumento());
         if (optionalPasajero.isPresent()) {
             throw new ApiPasajeroConflict("El numero de documento ya existe");
         }
         pasajeroRepo.save(pasajeroEntity);
+        return MHelpers.modelMapper().map(pasajeroEntity, PasajeroDto.class);
 
     }
 
     @Override
-    public void update(PasajeroUpdateRequest pasajeroUpdateRequest, int id) {
+    public PasajeroDto update(PasajeroUpdateRequest pasajeroUpdateRequest, int id) throws ApiPasajeroConflict {
         Optional<PasajeroEntity> pasajeroOptional = pasajeroRepo.findById(id);
         if (pasajeroOptional.isPresent()) {
             PasajeroEntity pasajeroEntity = pasajeroOptional.get();
@@ -89,7 +90,11 @@ public class PasajeroImpl implements IPasajeroService {
             pasajeroEntity.setDireccion(pasajeroUpdateRequest.getDireccion());
             pasajeroEntity.setCorreo(pasajeroUpdateRequest.getCorreo());
             pasajeroRepo.save(pasajeroEntity);
+            return MHelpers.modelMapper().map(pasajeroEntity, PasajeroDto.class);
+        } else {
+            throw new ApiPasajeroConflict("El id del pasajero no existe");
         }
+
     }
 
     @Override

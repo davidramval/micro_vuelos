@@ -42,12 +42,13 @@ public class VueloImpl implements IVueloService {
     }
 
     @Override
-    public void update(VueloSaveRequest vueloSaveRequest, int id) throws VueloApiConflict {
+    public VueloDto update(VueloSaveRequest vueloSaveRequest, int id) throws VueloApiConflict {
         Optional<VueloEntity> optionalVuelo = vueloRepo.findById(id);
         if (optionalVuelo.isPresent()){
             VueloEntity vueloEntity = MHelpers.modelMapper().map(vueloSaveRequest, VueloEntity.class);
             vueloEntity.setId(optionalVuelo.get().getId());
             vueloRepo.save(vueloEntity);
+            return MHelpers.modelMapper().map(vueloEntity, VueloDto.class);
         } else {
           throw new VueloApiConflict("el id del vuelo no exite");
         }
